@@ -1,6 +1,7 @@
 #ifndef TENSOR_H
 #define TENSOR_H
 
+#include <stddef.h>
 
 #define linr_rprsnt(cols,i,j)      ( (i) * (cols) + (j) )
 #define TENSOR_AT(struct_t,i,j)    (struct_t)->data[(struct_t)->cols * (i) + (j) ]
@@ -19,7 +20,7 @@ typedef struct
     float *data; // float bc double kills SIMD throughput and doubles memory ,SIMD uses 4byte ,.... and it's float bc i deal with a float wieght for ex...e
 } Tensor ;
 
-Arena* ArenaInit    (Arena * a ,size_t arena_size);
+void ArenaInit    (Arena * a ,size_t arena_size);
 float* ArenaAlloc   (Arena * a , float *current,size_t size);
 float* ArenaReset   (Arena * a );
 void   ArenaFree    (Arena * a );

@@ -3,13 +3,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-Arena ArenaInit(Arena *a , size_t size )
+void ArenaInit(Arena *a , size_t arena_size)
 {
-   a->base = malloc(size * sizeof(float);
-   a->currnet = a->base;
-   a->capacity = size ;
+   a->base = malloc(arena_size);
+   a->current = a->base;
+   a->capacity = arena_size ;
 
-  return *a;
 }
 
 float* ArenaAlloc(Arena *a , float *current , size_t size)
