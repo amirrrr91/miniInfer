@@ -14,7 +14,7 @@ typedef struct {
    int   n_layers;
 }Network;
 
-Network* load_network (Arena*a , const char *path);
+Network* load_network (const char *path , Arena *a );
 
 
 #endif 

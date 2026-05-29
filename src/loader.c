@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<string.h>
 
- Network *load_network(Arena*a , const char *path){
+ Network *load_network(const char *path , Arena *a){
 
    FILE *file = fopen(path ,"rb");
    if (file == NULL){

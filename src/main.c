@@ -9,6 +9,6 @@ vboxuser@ubuntu-24:~/miniInfer$  ls -la weights/model.bin
 int main(void) {
     Arena a;
     ArenaInit(&a ,ARENA_SIZE ) ;
-    Network *network = load_network(&a ,"weights/model.bin");
+    Network *network = load_network("weights/model.bin", &a);
     return 0;
 }
