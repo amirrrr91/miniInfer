@@ -29,7 +29,7 @@ void* ArenaAlloc(Arena *a , size_t size)
     }
 /* cant use the bitwise op to pointers dicrictrly so cant do an alignment to the pointer */
    void *current = a->current;
-   a->current =  aligned  ;
+   a->current +=  aligned  ;
   return current;
 }
 
