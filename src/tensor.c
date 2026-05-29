@@ -5,7 +5,13 @@
 
 void ArenaInit(Arena *a , size_t arena_size)
 {
-   a->base = malloc(arena_size);
+    /* malloc always returns aligned memory */
+      a->base = malloc(arena_size);
+   if(a->base == NULL)
+   {
+      fprintf(stderr,"Fatal Error: Could not allocate Arena of size %zu\n", arena_size);
+      exit(1);
+   }
    a->current = a->base;
    a->capacity = arena_size ;
 
@@ -13,11 +19,17 @@ void ArenaInit(Arena *a , size_t arena_size)
 
 void* ArenaAlloc(Arena *a , size_t size)
 {
-    if ((a->current - a->base) + size > a->capacity) {
+    // align size up to nearest multiple of 8
+    size_t aligned = (size + 7) & ~7;
+
+    if ((a->current - a->base) + size > a->capacity) 
+    {
+        fprintf(stderr, "Fatal Error: Arena Out of Memory!\n");
         return NULL; // Out of memory
     }
+/* cant use the bitwise op to pointers dicrictrly so cant do an alignment to the pointer */
    void *current = a->current;
-   a->current += size ;
+   a->current =  aligned  ;
   return current;
 }
 
@@ -54,8 +66,7 @@ Tensor* copy_tensor(Arena *a ,float* data, int rows, int cols)
 }
 
 
-void free_tensor(Tensor *t)
-{
-   (void)t;
-}
+// Tensors are arena-managed. Call ArenaFree() to release all memory.
+// This function exists only to satisfy any existing callers.
+void free_tensor(Tensor *t) { (void)t; }
 
