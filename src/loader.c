@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<string.h>
 
- Network *load_network(const char *path){
+ Network *load_network(Arena*a , const char *path){
 
    FILE *file = fopen(path ,"rb");
    if (file == NULL){
@@ -29,8 +29,8 @@
 
   /* ── allocate network ──────────────────────────────────────── */
 
-   Network *net = malloc(sizeof(Network));
-   net->layer = malloc(n_layers * sizeof(Layer));
+   Network *net = ArenaAlloc (a ,sizeof(Network)) ;
+   net->layer   = ArenaAlloc (a , n_layers * sizeof(Layer));
 
    for (int i = 0 ; i < n_layers ; i++){
 
@@ -39,11 +39,11 @@
       fread(&rows , sizeof(uint32_t), 1 , file);
       fread(&cols , sizeof(uint32_t), 1 , file);
 
-      net->layer[i].weights = make_tensor((int)rows ,(int) cols);
+      net->layer[i].weights = make_tensor(a , (int)rows ,(int) cols);
       fread(net->layer[i].weights->data , sizeof(float),rows * cols , file );
 
       fread(&bias_len , sizeof(uint32_t), 1 , file);
-      net->layer[i].bias = make_tensor((int)bias_len , 1);
+      net->layer[i].bias = make_tensor(a , (int)bias_len , 1);
       fread(net->layer[i].bias->data , sizeof(float), bias_len , file );
 
   /* verification print — remove after confirming correctness */
