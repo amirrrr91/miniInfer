@@ -15,7 +15,7 @@ typedef struct{
 }Layer; 
 
 typedef struct {
-   Layer *layer;
+   Layer *layers;
    int   n_layers;
 }Network;
 
