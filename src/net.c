@@ -22,4 +22,26 @@ int forward_pass ( Network *network ,Tensor *inputs , Arena *a  )
     return out ; 
 }
 
+Tensor *load_sample(const char *path ,int *out, Arena *a){
+
+   FILE *file = fopen(path ,"rb");
+   if (file == NULL){
+      fprintf(stderr,"Error opening'%s'\n",path);
+      return NULL ;
+      }
+
+  /* ── verify header ─────────────────────────────────────────── */
+   uint32_t label ;  
+   Tensor *pixels = make_tensor(a , 1 , 784);
+
+   fread(&label, sizeof(uint32_t), 1, file);
+   fread(pixels->data ,784* sizeof(float), 1 ,file);
+
+   *out = (int)label;   // add this line
+   fclose(file);
+
+   return pixels ;
+ }
+
+
   
