@@ -81,7 +81,6 @@ void ReLU(Tensor *fc_op)
 }
 void softmax(Tensor *output)
 {
-    float sum =0.0f;
     for (int i = 0; i < output->rows; i++)   //1
     {
         float max = TENSOR_AT(output, i, 0) ;
