@@ -1,7 +1,7 @@
 /*[i*inputs->cols + k] = [i][k]**/
 #include"ops.h"
 
-void matmul(Tensor *inputs , Tensor *weights , Tensor *res , Arena *a)
+Tensor* matmul(Tensor *inputs, Tensor *weights, Arena *a)
 {
     /*input:    (1 × 784)
 fc1 weights:    (128 × 784)"by default by pytorch" → transposed for multiply: (784 × 128)
@@ -41,8 +41,9 @@ argmax:         1 digit
                 res->data[i* res->cols + j] += r * weights->data[k* weights->cols + j];
             }
         }
-    }*/
-res     = make_tensor(a , 1 , weights->rows );                               //[1][128]
+    }*/   
+
+    Tensor *res = make_tensor(a, inputs->rows, weights->rows);              
     for (int i = 0; i < inputs->rows; i++)        // 1
     {
         for (int j = 0; j < weights->rows; j++)   // 128 ← swapped
@@ -55,6 +56,7 @@ res     = make_tensor(a , 1 , weights->rows );                               //[
             }
         }
     }
+    return res ;
 }
 
 void add_bias(Tensor *bias , Tensor *fc_op)    // fc_op = full connected network output

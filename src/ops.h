@@ -8,7 +8,7 @@
 /************************* */
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-void matmul(Tensor *inputs , Tensor *weights , Tensor *res , Arena *a);
+Tensor* matmul(Tensor *inputs, Tensor *weights, Arena *a);
 void add_bias(Tensor *bias , Tensor *fc_op) ;
 void ReLU(Tensor *fc_op) ;
 void softmax(Tensor *output);

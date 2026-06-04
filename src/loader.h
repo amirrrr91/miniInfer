@@ -3,6 +3,11 @@
 #define LOADER_H
 
 #include"tensor.h"
+#include <stdint.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+
 
 typedef struct{
    Tensor *weights;

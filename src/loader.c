@@ -1,8 +1,5 @@
 #include"loader.h"
-#include <stdint.h>
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
+
 
 
  Network *load_network(const char *path , Arena *a){
@@ -31,7 +28,7 @@
   /* ── allocate network ──────────────────────────────────────── */
 
    Network *net = ArenaAlloc (a ,sizeof(Network)) ;
-   net->layer   = ArenaAlloc (a , n_layers * sizeof(Layer));
+   net->layers   = ArenaAlloc (a , n_layers * sizeof(Layer));
 
    for (int i = 0 ; i < n_layers ; i++){
 
@@ -40,16 +37,16 @@
       fread(&rows , sizeof(uint32_t), 1 , file);
       fread(&cols , sizeof(uint32_t), 1 , file);
 
-      net->layer[i].weights = make_tensor(a , (int)rows ,(int) cols);
-      fread(net->layer[i].weights->data , sizeof(float),rows * cols , file );
+      net->layers[i].weights = make_tensor(a , (int)rows ,(int) cols);
+      fread(net->layers[i].weights->data , sizeof(float),rows * cols , file );
 
       fread(&bias_len , sizeof(uint32_t), 1 , file);
-      net->layer[i].bias = make_tensor(a , (int)bias_len , 1);
-      fread(net->layer[i].bias->data , sizeof(float), bias_len , file );
+      net->layers[i].bias = make_tensor(a , (int)bias_len , 1);
+      fread(net->layers[i].bias->data , sizeof(float), bias_len , file );
 
   /* verification print — remove after confirming correctness */
 
-    printf("Layer %d: W[0][0] = %f\n", i , net->layer[i].weights->data[0]);
+    printf("Layer %d: W[0][0] = %f\n", i , net->layers[i].weights->data[0]);
     }
 
     fclose(file);
