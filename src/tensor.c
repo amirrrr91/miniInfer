@@ -2,6 +2,7 @@
 #include "tensor.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include <string.h>
 
 void ArenaInit(Arena *a , size_t arena_size)
 {
