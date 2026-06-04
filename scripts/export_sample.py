@@ -9,8 +9,8 @@ transform = transforms.Compose([
 
 test_data = datasets.MNIST('./data', train=False, download=False, transform=transform)
 
-for i in range(10):
-    image, label = test_data[i * 100]  # spread samples across dataset
+for i in range(100):
+    image, label = test_data[i * 88]  # spread samples across dataset
 
     pixels = image.view(-1).numpy()
 

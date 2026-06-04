@@ -51,7 +51,7 @@ Tensor* make_tensor(Arena *a , int rows, int cols)
     ptensor->cols = cols;
     ptensor->rows = rows;
     ptensor->data = ArenaAlloc(a , rows * cols * sizeof(float));
-    memset(ptensor->data, 0, rows * cols * sizeof(float));  
+//    memset(ptensor->data, 0, rows * cols * sizeof(float));  
     return ptensor;              
 }
 

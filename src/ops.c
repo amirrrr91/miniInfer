@@ -44,6 +44,8 @@ argmax:         1 digit
     }*/   
 
     Tensor *res = make_tensor(a, inputs->rows, weights->rows);              
+memset(res->data, 0, res->rows * res->cols * sizeof(float));
+
     for (int i = 0; i < inputs->rows; i++)        // 1
     {
         for (int j = 0; j < weights->rows; j++)   // 128 ← swapped

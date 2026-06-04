@@ -11,22 +11,30 @@ vboxuser@ubuntu-24:~/miniInfer$  ls -la weights/model.bin
 #define ARENA_SIZE (10 * 1024 * 1024)  // 10 MB
 
 int main(void) {
-    Arena a;
+    
     int out ;
     char path[64];
-    ArenaInit(&a ,ARENA_SIZE ) ;
-    Network *network = load_network("weights/model.bin", &a);
-    for (int i =0 ; i< 10 ;i++)
-    {
+    Arena permanent, temp;
+ArenaInit(&permanent, ARENA_SIZE);
+ArenaInit(&temp,ARENA_SIZE);  // small, just for inference tensors
 
-    sprintf(path, "weights/sample_%d.bin", i);
-    Tensor  *inputs  = load_sample (path,&out,&a);
+Network *network = load_network("weights/model.bin", &permanent);
 
-    int prediction = forward_pass(network, inputs, &a);
-    printf("True label:  %d\n", out);
-    printf("Predicted:   %d\n", prediction);
-    printf("%s\n", prediction == out ? "CORRECT" : "WRONG");
+// load all samples once before the timed loop
+Tensor *samples[100];
+int labels[100];
+for (int j = 0; j < 100; j++) {
+    sprintf(path, "weights/sample_%d.bin", j);
+    samples[j] = load_sample(path, &labels[j], &permanent);
+}
+
+// now time pure compute
+for (int i = 0; i < 1000; i++)
+    for (int j = 0; j < 100; j++) {
+        ArenaReset(&temp);
+        forward_pass(network, samples[j], &temp);
     }
-    ArenaReset(&a);   
+    ArenaReset(&permanent);
+    ArenaReset(&temp);
     return 0;
 }
