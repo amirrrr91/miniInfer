@@ -8,15 +8,11 @@
 /************************* */
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-//#define M_E		2.7182818284590452354
+void matmul(Tensor *inputs , Tensor *weights , Tensor *res , Arena *a);
+void add_bias(Tensor *bias , Tensor *fc_op) ;
+void ReLU(Tensor *fc_op) ;
+void softmax(Tensor *output);
 
-
-Tensor* matmul(Tensor *inputs , Tensor *weights , Tensor *res , Arena *a);
-Tensor* add_bias(Tensor *bias , Tensor *wa);
-void connecionEQ(Layer *FC );
-void ReLU();
-void softmax();
-void argma();
 
 
 #endif
