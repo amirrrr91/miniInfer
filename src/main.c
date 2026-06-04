@@ -1,4 +1,7 @@
 #include "loader.h"
+#include"net.h"
+#include"ops.h"
+#include"tensor.h"
 #include <stdio.h>
 /*
 vboxuser@ubuntu-24:~/miniInfer$  ls -la weights/model.bin
