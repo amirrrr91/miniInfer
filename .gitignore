@@ -1,0 +1,8 @@
+venv/
+.cache/
+*.o
+*.bin
+build/
+__pycache__/
+data/
+miniInfer
