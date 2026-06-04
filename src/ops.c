@@ -67,7 +67,6 @@ void add_bias(Tensor *bias , Tensor *fc_op)    // fc_op = full connected network
 
         }
     }    
-    return fc_op ;
 }
 void ReLU(Tensor *fc_op)
 {
